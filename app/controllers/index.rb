@@ -9,9 +9,29 @@ get '/events/:id/show' do |id|
 end
 
 get '/events/new' do
-  #TODO IMPLEMENT ME
+  erb :form_field
 end
 
 post '/events/create' do
-  #TODO IMPLEMENT ME
+  event = Event.new(title: params[:title], date: params[:date], organizer_name: params[:name])
+  event.save
+  if event.invalid?
+    if event.errors.messages[:date] 
+      p "first"
+      date = event.errors.messages[:date]
+    end
+    if event.errors.messages[:title] 
+      p "second"
+      name = event.errors.messages[:title]
+    end
+    if event.errors.messages[:organizer_name]
+      p "third"
+      title = event.errors.messages[:organizer_name] 
+    end
+    if event.valid?
+      redirect '/'
+    end
+  end
+  content_type :json
+  { date: date, name: name, title: title}.to_json
 end
