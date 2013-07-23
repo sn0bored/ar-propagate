@@ -1,9 +1,9 @@
 class Event < ActiveRecord::Base
 
-  # validates :date, :title, :organizer_name, presence: true
-  validate :validate_date_format
-  # validates :title, uniqueness: true
-  # validate :validate_correct_date
+  validates :date, :title, :organizer_name, presence: true
+  #validate :validate_date_format
+  validates :title, uniqueness: true
+  validate :validate_correct_date
 
   def validate_correct_date
     if date 
