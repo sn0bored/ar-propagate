@@ -1,0 +1,9 @@
+  <ul>
+    <% if @events %>
+    <% @events.each do |event| %>
+      <li><a href="/events/<%=event.id%>/show"><%=event.date%></a> - <%=event.title%></li>
+    <% end %>
+    <%end%>
+  </ul>
+
+  <p><%= @errors %></p>

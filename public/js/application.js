@@ -1,27 +1,35 @@
 $(document).ready(function () {
 
-  // send an HTTP DELETE request for the sign-out link
-  // $('a#sign-out').on("click", function (e) {
-  //   e.preventDefault();
-  //   var request = $.ajax({ url: $(this).attr('href'), type: 'delete' });
-  //   request.done(function () { window.location = "/"; });
-  // });
 
+  $('form.new-event').on('submit', function(event){
+    event.preventDefault();
 
-  $('#create_event').on('submit', function(e){
-    e.preventDefault();
-    $.post('/events/create', { date: $('#date').val(), title: $('#title').val(), name: $('#name').val()})
-     .done(function(response){
-      console.log(response.date)
-      if (response.date){
-        $('#date_title').append(response.date[0]).css('color', 'red');
-      }
-       if(response.name){
-        $('#event_title').append(response.name[0]).css('color', 'red');
-      }
-        if(response.title){
-        $('#name_title').append(response.title[0]).css('color', 'red');
-      }
+    var form = $(this);
+
+    var request = $.ajax({
+      type:     "POST",
+      url:      form.attr('action'),
+      data:     form.serialize(),
+      dataType: 'json'
+    });
+
+    // success
+    request.done(function(data, status, xhr){
+       $('.errors').empty();
+       $('.event_created').text("Event Created!");
+      form[0].reset();
+    });
+
+    // failed
+
+    request.fail(function(xhr, status, error) {
+      $('.errors').empty();
+      var errors = JSON.parse(xhr.responseText);
+  
+      Object.keys(errors).forEach(function(field){
+        $('#' + field + '_errors').text(errors[field]);
+      })
     });
   });
+
 });

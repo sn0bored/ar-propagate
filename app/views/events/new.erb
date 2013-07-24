@@ -1,0 +1,34 @@
+<form class="new-event" action='/events' method="post">
+
+  <div class="event_created"></div>
+
+  <label class="input date">
+    <div>Date:</div>
+    <input type="text" placeholder="2013/6/22" name="date" value="<%= @event.date %>"/>
+      <div id="date_errors" class="errors"></div>
+  </label>
+
+  <label class="input title">
+    <div>Title:</div>
+    <input type="text" type='text' placeholder="Title" name="title" value="<%= @event.title %>"/>
+       <div id="title_errors" class="errors"><%#= @event.error.on(:title).first %></div>
+  </label>
+
+  <label>
+    <div>Organizer Name:</div>
+    <input type="text" type="text" placeholder="Organizer Name" name="organizer_name" value="<%= @event.organizer_name %>"/>
+      <div id="organizer_name_errors" class="errors"><%#= @event.error.on(:event_organizer_name).first %></div>
+  </label>
+
+  <label>
+    <div>Organizer Email:</div>
+    <input type="text" type="text" placeholder="Organizer Email" name="organizer_email" value="<%= @event.organizer_email %>"/>
+      <div id="organizer_email_errors" class="errors"><%#= @event.error.on(:event_organizer_email).first %></div>
+  </label>
+
+  <p>
+    <input type="submit" value="Create" />
+  </p>
+</form>
+
+
